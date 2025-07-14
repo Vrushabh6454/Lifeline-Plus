@@ -14,7 +14,171 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          appointment_date: string
+          created_at: string
+          doctor_id: string
+          id: string
+          notes: string | null
+          patient_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_date: string
+          created_at?: string
+          doctor_id: string
+          id?: string
+          notes?: string | null
+          patient_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_date?: string
+          created_at?: string
+          doctor_id?: string
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emergency_alerts: {
+        Row: {
+          address: string | null
+          assigned_doctor_id: string | null
+          created_at: string
+          description: string | null
+          emergency_type: string
+          id: string
+          latitude: number
+          longitude: number
+          patient_id: string | null
+          patient_name: string | null
+          patient_phone: string
+          resolved_at: string | null
+          status: string
+          twilio_message_sid: string | null
+        }
+        Insert: {
+          address?: string | null
+          assigned_doctor_id?: string | null
+          created_at?: string
+          description?: string | null
+          emergency_type: string
+          id?: string
+          latitude: number
+          longitude: number
+          patient_id?: string | null
+          patient_name?: string | null
+          patient_phone: string
+          resolved_at?: string | null
+          status?: string
+          twilio_message_sid?: string | null
+        }
+        Update: {
+          address?: string | null
+          assigned_doctor_id?: string | null
+          created_at?: string
+          description?: string | null
+          emergency_type?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          patient_id?: string | null
+          patient_name?: string | null
+          patient_phone?: string
+          resolved_at?: string | null
+          status?: string
+          twilio_message_sid?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_alerts_assigned_doctor_id_fkey"
+            columns: ["assigned_doctor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emergency_alerts_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          address: string | null
+          created_at: string
+          first_name: string
+          id: string
+          is_available: boolean | null
+          last_name: string
+          latitude: number | null
+          license_number: string | null
+          longitude: number | null
+          phone: string | null
+          specialization: string | null
+          updated_at: string
+          user_id: string
+          user_type: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          first_name: string
+          id?: string
+          is_available?: boolean | null
+          last_name: string
+          latitude?: number | null
+          license_number?: string | null
+          longitude?: number | null
+          phone?: string | null
+          specialization?: string | null
+          updated_at?: string
+          user_id: string
+          user_type: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          first_name?: string
+          id?: string
+          is_available?: boolean | null
+          last_name?: string
+          latitude?: number | null
+          license_number?: string | null
+          longitude?: number | null
+          phone?: string | null
+          specialization?: string | null
+          updated_at?: string
+          user_id?: string
+          user_type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
