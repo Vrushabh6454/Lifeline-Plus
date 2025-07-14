@@ -5,11 +5,12 @@ import { Activity, FileText, Brain, Users, Calendar, Shield } from "lucide-react
 const QuickActions = () => {
   const actions = [
     {
-      title: "Health Records",
-      description: "Access your medical history",
+      title: "Doctor Login",
+      description: "Healthcare provider access",
       icon: FileText,
       color: "bg-medical-light",
-      requiresAuth: true
+      requiresAuth: false,
+      isDoctor: true
     },
     {
       title: "Predictive Analysis",
@@ -49,7 +50,10 @@ const QuickActions = () => {
   ];
 
   const handleActionClick = (action: any) => {
-    if (action.requiresAuth) {
+    if (action.isDoctor) {
+      // Navigate to doctor login - will be implemented with routing
+      alert("Doctor login feature - Dashboard with patient alerts and map coming soon!");
+    } else if (action.requiresAuth) {
       alert("Please sign in to access this feature");
     } else {
       console.log(`Accessing ${action.title}`);
