@@ -2,66 +2,61 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Activity, FileText, Brain, Users, Calendar, Shield } from "lucide-react";
 
-interface QuickActionsProps {
-  onLoginClick: (type: "patient" | "doctor") => void;
-}
-
-const QuickActions = ({ onLoginClick }: QuickActionsProps) => {
+const QuickActions = () => {
   const actions = [
     {
-      title: "Patient Login",
-      description: "Access your health dashboard",
-      icon: Users,
-      color: "bg-medical-light",
-      type: "patient"
-    },
-    {
       title: "Doctor Login",
-      description: "Healthcare provider portal",
+      description: "Healthcare provider access",
       icon: FileText,
       color: "bg-medical-light",
-      type: "doctor"
+      requiresAuth: false,
+      isDoctor: true
     },
     {
-      title: "Emergency Alert",
-      description: "24/7 emergency assistance",
+      title: "Predictive Analysis",
+      description: "AI-powered health insights",
+      icon: Brain,
+      color: "bg-medical-light",
+      requiresAuth: true
+    },
+    {
+      title: "Vital Signs",
+      description: "Monitor your health metrics",
       icon: Activity,
-      color: "bg-red-100",
-      type: "emergency"
+      color: "bg-medical-light",
+      requiresAuth: true
     },
     {
       title: "Find Doctors",
-      description: "Locate nearby healthcare providers",
+      description: "Connect with healthcare providers",
       icon: Users,
       color: "bg-medical-light",
-      type: "directory"
+      requiresAuth: false
     },
     {
-      title: "Health Insurance",
-      description: "Insurance and coverage info",
+      title: "Appointments",
+      description: "Schedule medical visits",
+      icon: Calendar,
+      color: "bg-medical-light",
+      requiresAuth: true
+    },
+    {
+      title: "Insurance",
+      description: "Manage your coverage",
       icon: Shield,
       color: "bg-medical-light",
-      type: "insurance"
-    },
-    {
-      title: "Telemedicine",
-      description: "Virtual consultations",
-      icon: Brain,
-      color: "bg-medical-light",
-      type: "telemedicine"
+      requiresAuth: true
     }
   ];
 
   const handleActionClick = (action: any) => {
-    if (action.type === "patient") {
-      onLoginClick("patient");
-    } else if (action.type === "doctor") {
-      onLoginClick("doctor");
-    } else if (action.type === "emergency") {
-      // Emergency button is always visible - this is just informational
-      alert("Use the red emergency button in the bottom right corner for immediate help!");
+    if (action.isDoctor) {
+      // Navigate to doctor login - will be implemented with routing
+      alert("Doctor login feature - Dashboard with patient alerts and map coming soon!");
+    } else if (action.requiresAuth) {
+      alert("Please sign in to access this feature");
     } else {
-      alert(`${action.title} feature coming soon!`);
+      console.log(`Accessing ${action.title}`);
     }
   };
 
@@ -94,8 +89,9 @@ const QuickActions = ({ onLoginClick }: QuickActionsProps) => {
                     variant="outline" 
                     size="sm" 
                     className="w-full"
+                    disabled={action.requiresAuth}
                   >
-                    {action.type === "patient" || action.type === "doctor" ? "Login" : "Access"}
+                    {action.requiresAuth ? "Sign In Required" : "Access Now"}
                   </Button>
                 </CardContent>
               </Card>
