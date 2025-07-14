@@ -23,22 +23,13 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             <a href="#" className="text-foreground hover:text-primary transition-colors">Dashboard</a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">Records</a>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">Predictions</a>
+            <a href="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</a>
+            <a href="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</a>
             <a href="#" className="text-foreground hover:text-primary transition-colors">Emergency</a>
           </nav>
 
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Button variant="outline" size="sm">
-              <User className="h-4 w-4 mr-2" />
-              Sign In
-            </Button>
-            <Button size="sm">
-              <Shield className="h-4 w-4 mr-2" />
-              Register
-            </Button>
-          </div>
+          
 
           {/* Mobile Menu Button */}
           <Button
@@ -56,19 +47,10 @@ const Header = () => {
           <div className="md:hidden mt-4 pb-4 border-t border-border">
             <nav className="flex flex-col space-y-3 pt-4">
               <a href="#" className="text-foreground hover:text-primary transition-colors">Dashboard</a>
-              <a href="#" className="text-foreground hover:text-primary transition-colors">Records</a>
-              <a href="#" className="text-foreground hover:text-primary transition-colors">Predictions</a>
+              <a href="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor Login</a>
+              <a href="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient Login</a>
               <a href="#" className="text-foreground hover:text-primary transition-colors">Emergency</a>
-              <div className="flex flex-col space-y-2 pt-3">
-                <Button variant="outline" size="sm">
-                  <User className="h-4 w-4 mr-2" />
-                  Sign In
-                </Button>
-                <Button size="sm">
-                  <Shield className="h-4 w-4 mr-2" />
-                  Register
-                </Button>
-              </div>
+              
             </nav>
           </div>
         )}

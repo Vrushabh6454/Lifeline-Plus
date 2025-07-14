@@ -4,14 +4,7 @@ import { Activity, FileText, Brain, Users, Calendar, Shield } from "lucide-react
 
 const QuickActions = () => {
   const actions = [
-    {
-      title: "Doctor Login",
-      description: "Healthcare provider access",
-      icon: FileText,
-      color: "bg-medical-light",
-      requiresAuth: false,
-      isDoctor: true
-    },
+
     {
       title: "Predictive Analysis",
       description: "AI-powered health insights",

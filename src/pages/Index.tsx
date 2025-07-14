@@ -44,7 +44,7 @@ const Index = () => {
       </section>
 
       {/* Quick Actions */}
-      <QuickActions />
+      
 
       {/* Features */}
       <Features />

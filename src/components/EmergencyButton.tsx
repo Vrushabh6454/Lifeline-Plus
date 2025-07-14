@@ -9,8 +9,7 @@ const EmergencyButton = () => {
 
   const handleEmergencyAlert = async () => {
     setIsActivating(true);
-    
-    // Get current location and time
+
     const getCurrentLocation = () => {
       return new Promise<GeolocationPosition>((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(resolve, reject);
@@ -20,39 +19,33 @@ const EmergencyButton = () => {
     try {
       const position = await getCurrentLocation();
       const { latitude, longitude } = position.coords;
-      const currentTime = new Date().toISOString();
-      
-      // Emergency data to send via Twilio
-      const emergencyData = {
-        type: "MEDICAL_EMERGENCY",
-        location: {
-          latitude,
-          longitude,
-          name: "Current Location" // Can be enhanced with reverse geocoding
-        },
-        timestamp: currentTime,
-        coordinates: `${latitude}, ${longitude}`
-      };
 
-      console.log("Emergency Alert Data:", emergencyData);
-      
-      // TODO: Connect to Supabase Edge Function that calls Twilio API
-      // await fetch('/api/emergency-alert', {
-      //   method: 'POST',
-      //   body: JSON.stringify(emergencyData)
-      // });
-
-      toast({
-        title: "🚨 Emergency Alert Activated",
-        description: "Emergency services have been notified with your location and timestamp.",
-        variant: "default",
+      const response = await fetch("http://localhost:5000/send-sos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ latitude, longitude }),
       });
 
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "\u2705 Emergency Alert Sent!",
+          description: "Location shared with emergency services.",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "\u274C Failed to Send Alert",
+          description: result.error || "Server responded with an error.",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.error("Emergency alert error:", error);
       toast({
-        title: "Emergency Alert",
-        description: "Alert activated. Please ensure you have network connectivity for location services.",
+        title: "\u274C Error Sending Alert",
+        description: "Location unavailable or network error.",
         variant: "destructive",
       });
     } finally {
@@ -76,7 +69,7 @@ const EmergencyButton = () => {
           </div>
         </div>
       </Button>
-      
+
       <div className="text-center text-sm text-muted-foreground max-w-md">
         <div className="flex items-center justify-center space-x-4 mt-2">
           <div className="flex items-center space-x-1">

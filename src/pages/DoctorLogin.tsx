@@ -87,7 +87,7 @@ const DoctorDashboard = () => {
     },
     {
       id: 2,
-      patient: "Jane Smith", 
+      patient: "Jane Smith",
       type: "Respiratory Distress",
       location: "Medical District",
       coordinates: { lat: 40.7580, lng: -73.9855 },
@@ -96,11 +96,37 @@ const DoctorDashboard = () => {
     }
   ]);
 
-  const handleAcceptAlert = (alertId: number) => {
-    alert(`Accepting alert ${alertId} - Navigation will be initiated`);
-    // TODO: Integrate with routing service for shortest path
+  const sendAlert = async (alertInfo: any) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/alert/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: "+91xxxxxxxxxx", // ✅ Replace with real/verified number
+          message: `🚨 Emergency Alert: ${alertInfo.patient} is facing ${alertInfo.type} at ${alertInfo.location}. Immediate response required.`,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert("✅ Alert sent to emergency team.");
+      } else {
+        alert("❌ Failed to send alert: " + (data.error || "Unknown error."));
+      }
+    } catch (error) {
+      console.error(error);
+      alert("🚫 Server or network error.");
+    }
   };
 
+  const handleAcceptAlert = (alertId: number) => {
+    const alertInfo = alerts.find(alert => alert.id === alertId);
+    if (alertInfo) {
+      sendAlert(alertInfo);
+      // Navigate to map view or further actions
+      console.log(`Accepted alert for ${alertInfo.patient}`);
+    }
+  };
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="container mx-auto">
@@ -114,9 +140,8 @@ const DoctorDashboard = () => {
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">Active Patient Alerts</h2>
             {alerts.map((alert) => (
-              <Card key={alert.id} className={`border-l-4 ${
-                alert.priority === 'high' ? 'border-l-emergency' : 'border-l-primary'
-              }`}>
+              <Card key={alert.id} className={`border-l-4 ${alert.priority === 'high' ? 'border-l-emergency' : 'border-l-primary'
+                }`}>
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div>
@@ -125,11 +150,10 @@ const DoctorDashboard = () => {
                         {alert.type}
                       </CardDescription>
                     </div>
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${
-                      alert.priority === 'high' 
-                        ? 'bg-emergency/10 text-emergency' 
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${alert.priority === 'high'
+                        ? 'bg-emergency/10 text-emergency'
                         : 'bg-primary/10 text-primary'
-                    }`}>
+                      }`}>
                       {alert.priority.toUpperCase()}
                     </span>
                   </div>
@@ -143,8 +167,11 @@ const DoctorDashboard = () => {
                       🕐 {alert.timestamp}
                     </p>
                   </div>
-                  <Button 
-                    onClick={() => handleAcceptAlert(alert.id)}
+                  <Button
+                    onClick={() => {
+                      handleAcceptAlert(alert.id);
+                      sendAlert(alert); // 👈 Add this line to trigger backend
+                    }}
                     className="w-full"
                     variant={alert.priority === 'high' ? 'destructive' : 'default'}
                   >
@@ -179,7 +206,7 @@ const DoctorDashboard = () => {
                 </div>
               </CardContent>
             </Card>
-            
+
             {/* Quick Stats */}
             <div className="grid grid-cols-2 gap-4">
               <Card>
