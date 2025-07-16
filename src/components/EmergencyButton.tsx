@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const EmergencyButton = () => {
   const [isActivating, setIsActivating] = useState(false);
@@ -20,11 +22,12 @@ const EmergencyButton = () => {
       const position = await getCurrentLocation();
       const { latitude, longitude } = position.coords;
 
-      const response = await fetch("http://localhost:5000/send-sos", {
+      const response = await fetch(`${backendUrl}/send-sos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ latitude, longitude }),
       });
+
 
       const result = await response.json();
 
