@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Heart, User, Shield, Menu } from "lucide-react";
+import { Heart, User, Shield, Menu } from "lucide-react"; // ✅ Removed Link icon to avoid name clash
 import { useState } from "react";
+import { Link } from "react-router-dom"; // ✅ Correct Link for routing
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,13 +24,10 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
             <a href="#" className="text-foreground hover:text-primary transition-colors">Dashboard</a>
-            <a href="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</a>
-            <a href="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</a>
+            <Link to="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</Link>
+            <Link to="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
             <a href="#" className="text-foreground hover:text-primary transition-colors">Emergency</a>
           </nav>
-
-          {/* Auth Buttons */}
-          
 
           {/* Mobile Menu Button */}
           <Button
@@ -47,10 +45,9 @@ const Header = () => {
           <div className="md:hidden mt-4 pb-4 border-t border-border">
             <nav className="flex flex-col space-y-3 pt-4">
               <a href="#" className="text-foreground hover:text-primary transition-colors">Dashboard</a>
-              <a href="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor Login</a>
-              <a href="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient Login</a>
+              <Link to="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor Login</Link>
+              <Link to="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient Login</Link>
               <a href="#" className="text-foreground hover:text-primary transition-colors">Emergency</a>
-              
             </nav>
           </div>
         )}
