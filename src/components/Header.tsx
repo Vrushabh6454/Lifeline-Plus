@@ -1,17 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Heart, User, Shield, Menu } from "lucide-react";
+import { Heart, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-
-
-
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50">
+    <header className="relative bg-background border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -26,19 +22,12 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
-            <Link to="/login/doctor" className="text-foreground hover:text-primary transition-colors">
-              Doctor
-            </Link>
-
-            <Link to="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
+            <Link to="/register/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</Link>
+            <Link to="/register/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
             <Link to="/emergency" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
           </nav>
-
-          {/* Auth Buttons */}
-
 
           {/* Mobile Menu Button */}
           <Button
@@ -53,16 +42,40 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-border">
-            <nav className="flex flex-col space-y-3 pt-4">
-              <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
-              <Link to="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</Link>
-              <Link to="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
-              <Link to="#" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
+  <div className="absolute top-full left-0 w-full bg-background border-t border-border z-50 shadow-md md:hidden">
+    <nav className="flex flex-col space-y-3 px-4 py-4">
+      <Link
+        to="/"
+        onClick={() => setIsMenuOpen(false)}
+        className="text-foreground hover:text-primary transition-colors"
+      >
+        Dashboard
+      </Link>
+      <Link
+        to="/register/doctor"
+        onClick={() => setIsMenuOpen(false)}
+        className="text-foreground hover:text-primary transition-colors"
+      >
+        Doctor
+      </Link>
+      <Link
+        to="/register/patient"
+        onClick={() => setIsMenuOpen(false)}
+        className="text-foreground hover:text-primary transition-colors"
+      >
+        Patient
+      </Link>
+      <Link
+        to="/emergency"
+        onClick={() => setIsMenuOpen(false)}
+        className="text-foreground hover:text-primary transition-colors"
+      >
+        Emergency
+      </Link>
+    </nav>
+  </div>
+)}
 
-            </nav>
-          </div>
-        )}
       </div>
     </header>
   );
