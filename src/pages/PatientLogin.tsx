@@ -21,12 +21,12 @@ const PatientLogin = () => {
     e.preventDefault();
     // 🔐 Dummy auth — replace with backend later
     if (
-      credentials.email === "patient@example.com" &&
+      credentials.email === "abc@abc.com" &&
       credentials.password === "123456"
     ) {
       setIsLoggedIn(true);
     } else {
-      setError("Invalid credentials. Try 'patient@example.com' / '123456'");
+      setError("Invalid credentials. Try 'abc@abc.com' / '123456'");
     }
   };
 
@@ -74,6 +74,9 @@ const PatientLogin = () => {
             <Button type="submit" className="w-full">
               Login
             </Button>
+            <a href="/register/patient" className="text-sm text-muted-foreground hover:underline">
+              Don't have an account? Register
+            </a>
           </form>
         </CardContent>
       </Card>

@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Stethoscope, Lock, Mail } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const DoctorLogin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ const DoctorLogin = () => {
   }
 
   return (
+    
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
@@ -66,10 +69,21 @@ const DoctorLogin = () => {
             <Button type="submit" className="w-full">
               Login to Dashboard
             </Button>
+            <a
+              href="/register/doctor"
+              className="text-sm text-muted-foreground hover:underline"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/register/doctor");
+              }}
+            >
+              Don't have an account? Register
+            </a>
           </form>
         </CardContent>
       </Card>
     </div>
+    
   );
 };
 

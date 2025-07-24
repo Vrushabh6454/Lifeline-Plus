@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Heart, User, Shield, Menu, Link } from "lucide-react";
+import { Heart, User, Shield, Menu } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+
+
 
 
 const Header = () => {
@@ -23,15 +26,19 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
+
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#" className="text-foreground hover:text-primary transition-colors">Dashboard</a>
-            <Link href="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</Link>
-            <Link href="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
-            <a href="#" className="text-foreground hover:text-primary transition-colors">Emergency</a>
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
+            <Link to="/register/doctor" className="text-foreground hover:text-primary transition-colors">
+              Doctor
+            </Link>
+
+            <Link to="/register/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
+            <Link to="/emergency" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
           </nav>
 
           {/* Auth Buttons */}
-          
+
 
           {/* Mobile Menu Button */}
           <Button
@@ -47,13 +54,15 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border">
-            <nav className="flex flex-col space-y-3 pt-4">
-              <a href="#" className="text-foreground hover:text-primary transition-colors">Dashboard</a>
-              <a href="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor Login</a>
-              <a href="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient Login</a>
-              <a href="#" className="text-foreground hover:text-primary transition-colors">Emergency</a>
-              
-            </nav>
+            <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
+            <Link to="/register/doctor" className="text-foreground hover:text-primary transition-colors">
+              Doctor
+            </Link>
+
+            <Link to="/register/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
+            <Link to="/emergency" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
+          </nav>
           </div>
         )}
       </div>

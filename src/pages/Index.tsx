@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+
 import EmergencyButton from "@/components/EmergencyButton";
 import QuickActions from "@/components/QuickActions";
 import Features from "@/components/Features";
@@ -6,7 +6,7 @@ import Features from "@/components/Features";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      
       
       {/* Hero Section with Emergency Button */}
       <section className="py-20 bg-gradient-to-br from-medical-light/20 to-background">
