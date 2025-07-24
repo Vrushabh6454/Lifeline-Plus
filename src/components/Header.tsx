@@ -29,11 +29,11 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
-            <Link to="/register/doctor" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/login/doctor" className="text-foreground hover:text-primary transition-colors">
               Doctor
             </Link>
 
-            <Link to="/register/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
+            <Link to="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
             <Link to="/emergency" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
           </nav>
 
@@ -54,15 +54,13 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-border">
-            <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
-            <Link to="/register/doctor" className="text-foreground hover:text-primary transition-colors">
-              Doctor
-            </Link>
+            <nav className="flex flex-col space-y-3 pt-4">
+              <Link to="/" className="text-foreground hover:text-primary transition-colors">Dashboard</Link>
+              <Link to="/login/doctor" className="text-foreground hover:text-primary transition-colors">Doctor</Link>
+              <Link to="/login/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
+              <Link to="#" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
 
-            <Link to="/register/patient" className="text-foreground hover:text-primary transition-colors">Patient</Link>
-            <Link to="/emergency" className="text-foreground hover:text-primary transition-colors">Emergency</Link>
-          </nav>
+            </nav>
           </div>
         )}
       </div>
