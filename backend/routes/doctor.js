@@ -5,6 +5,9 @@ import path from "path";
 import { fileURLToPath } from "url";
 import DoctorDB from "../model/DoctorDB.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const  mongodb_URI = "mongodb+srv://vrushabhsalunke4855:vrushabh123@lifeline-plus.cpkey01.mongodb.net";
 
 dotenv.config({ path: path.resolve(__dirname, ".env") });
