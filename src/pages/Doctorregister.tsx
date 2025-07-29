@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom"; // ✅ Import this
+import { useNavigate, Link } from "react-router-dom"; // ✅ Link imported
 
 type DoctorFormData = {
   fullName: string;
@@ -19,38 +20,45 @@ type DoctorFormData = {
 const DoctorRegister = () => {
   const { register, handleSubmit, reset } = useForm<DoctorFormData>();
   const { toast } = useToast();
-  const navigate = useNavigate(); // ✅ Setup navigation
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data: DoctorFormData) => {
     try {
+      setLoading(true);
+
+      const payload = { ...data, name: data.fullName };
+      delete (payload as any).fullName;
+
       const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/doctor/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       const result = await res.json();
 
-      if (result.success) {
+      if (result.success || result.message?.includes("success")) {
         toast({
           title: "✅ Registered Successfully",
           description: "Redirecting to login...",
         });
         reset();
 
-        // ✅ Redirect after 1 second
         setTimeout(() => {
           navigate("/login/doctor");
         }, 1000);
       } else {
-        throw new Error(result.error || "Registration failed");
+        throw new Error(result.error || result.message || "Registration failed");
       }
     } catch (error: any) {
       toast({
         title: "❌ Error",
-        description: error.message,
+        description: error.message || "Something went wrong.",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,17 +98,16 @@ const DoctorRegister = () => {
               <Label htmlFor="experience">Years of Experience</Label>
               <Input type="number" id="experience" {...register("experience")} required />
             </div>
-            <Button type="submit" className="w-full max-w-xl">Register Doctor</Button>
-            <a
-              href="/login/doctor"
-              className="text-sm text-muted-foreground hover:underline"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/login/doctor");
-              }}
-            >
-              Already Registered? Login
-            </a>
+
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Registering..." : "Register Doctor"}
+            </Button>
+
+            <div className="text-center pt-2">
+              <Link to="/login/doctor" className="text-sm text-muted-foreground hover:underline">
+                Already Registered? Login
+              </Link>
+            </div>
           </form>
         </CardContent>
       </Card>
