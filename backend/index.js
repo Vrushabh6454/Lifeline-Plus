@@ -9,6 +9,8 @@ import DoctorRouter  from "./routes/doctor.js";
 import patientRouter from "./routes/patient.js";
 import alertRouter from "./routes/alert.js";
 
+
+
 // Support __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,9 +27,8 @@ app.use("/api/patient", patientRouter);
 app.use("/api/alert", alertRouter);
 
 
+const PORT = process.env.PORT || 5000;
 
-
-
-app.listen(PORT || 5000, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT || 5000}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
