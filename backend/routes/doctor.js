@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import DoctorDB from "../model/DoctorDB";
+import DoctorDB from "../model/DoctorDB.js";
 
 const  mongodb_URI = "mongodb+srv://vrushabhsalunke4855:vrushabh123@lifeline-plus.cpkey01.mongodb.net";
 
