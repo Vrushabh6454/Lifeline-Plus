@@ -1,16 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Activity, FileText, Brain, Users, Calendar, Shield } from "lucide-react";
+import { Activity, Brain, Users, Calendar, Shield } from "lucide-react";
 
 const QuickActions = () => {
   const actions = [
-
     {
       title: "Predictive Analysis",
       description: "AI-powered health insights",
       icon: Brain,
       color: "bg-medical-light",
-      requiresAuth: true
+      requiresAuth: true,
+      link: "https://healthcareai-nk48.onrender.com" // Only this one gets the link
     },
     {
       title: "Vital Signs",
@@ -42,17 +42,6 @@ const QuickActions = () => {
     }
   ];
 
-  const handleActionClick = (action: any) => {
-    if (action.isDoctor) {
-      // Navigate to doctor login - will be implemented with routing
-      alert("Doctor login feature - Dashboard with patient alerts and map coming soon!");
-    } else if (action.requiresAuth) {
-      alert("Please sign in to access this feature");
-    } else {
-      console.log(`Accessing ${action.title}`);
-    }
-  };
-
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
@@ -68,7 +57,6 @@ const QuickActions = () => {
               <Card 
                 key={index} 
                 className="hover:shadow-lg transition-all duration-200 border border-border hover:border-primary/20 cursor-pointer"
-                onClick={() => handleActionClick(action)}
               >
                 <CardHeader className="pb-3">
                   <div className={`w-12 h-12 rounded-lg ${action.color} flex items-center justify-center mb-3`}>
@@ -78,14 +66,27 @@ const QuickActions = () => {
                   <CardDescription>{action.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="w-full"
-                    disabled={action.requiresAuth}
-                  >
-                    {action.requiresAuth ? "Sign In Required" : "Access Now"}
-                  </Button>
+                  {action.link ? (
+                    <a
+                      href={action.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
+                      <Button variant="outline" size="sm" className="w-full">
+                        Access Now
+                      </Button>
+                    </a>
+                  ) : (
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full"
+                      disabled={action.requiresAuth}
+                    >
+                      {action.requiresAuth ? "Sign In Required" : "Access Now"}
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             );
